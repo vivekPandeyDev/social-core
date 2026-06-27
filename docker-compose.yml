@@ -1,0 +1,24 @@
+services:
+  social-core-discovery-service:
+    image: social-core/discovery-service:1.0.0
+    build:
+      context: discovery-service
+      dockerfile: Dockerfile
+    ports:
+      - "8761:8761"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 60s
+
+    networks:
+      - app-net
+
+networks:
+  app-net:
+    external: true
