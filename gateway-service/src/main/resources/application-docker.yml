@@ -1,0 +1,9 @@
+server:
+  port: 8080
+eureka:
+  instance:
+    prefer-ip-address: false
+    instance-id: ${spring.application.name}:${HOSTNAME}:${server.port}
+  client:
+    service-url:
+      defaultZone: http://social-core-discovery-service:8761/eureka
